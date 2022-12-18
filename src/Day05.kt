@@ -3,10 +3,6 @@ import java.util.*
 fun main() {
     val stacks = mutableListOf<Stack<Char>>()
 
-    fun part2(input: List<String>): Int {
-        return 0
-    }
-
     fun crearPilas(n: Int) {
         for (i in 0 until n) {
             stacks.add(Stack())
@@ -61,6 +57,8 @@ fun main() {
         }
     }
 
+    // -------------------------------------------------------
+
     fun part1(input: List<String>): String {
         val numPilas = procesarPilas(input)
 
@@ -75,6 +73,34 @@ fun main() {
             resp += stack.peek()
         }
         println(stacks[0])
+        return resp
+    }
+
+    // -------------------------------------------------------------
+
+    fun ejercutarMovimiento9001(cuantos: Int, desde: Int, hasta: Int) {
+        val posInicial = stacks[desde].size - cuantos
+        repeat (cuantos) {
+            val elem = stacks[desde].get(posInicial)
+            stacks[hasta].push(elem)
+            stacks[desde].removeAt(posInicial)
+        }
+    }
+
+    fun part2(input: List<String>): String {
+        stacks.clear()
+        val numPilas = procesarPilas(input)
+
+        for (i in numPilas + 2 until input.size) {
+            val linea = input[i]
+            val (cuantos, desde, hasta) = obtenerDatosLinea(linea)
+            ejercutarMovimiento9001(cuantos, desde, hasta)
+        }
+
+        var resp = ""
+        for (stack in stacks) {
+            resp += stack.peek()
+        }
         return resp
     }
 
