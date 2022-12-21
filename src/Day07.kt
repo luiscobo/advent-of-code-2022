@@ -159,8 +159,24 @@ fun main() {
         return totalSizeDirectoryToDelete(root!!, needed)
     }
 
-    val input = readInput("day07")
+    fun part3(lines: List<String>) {
+        val pattern = """[$] cd (.*)|(\d+).*""".toRegex()
+        for (line in lines) {
+            val match = pattern.matchEntire(line) ?: continue
+            if (match.groups[1] != null) {
+                println("Line $line => Group 1 = ${match.groups[1]!!.value}")
+            }
+            if (match.groups[2] != null) {
+                println("Line $line => Group 2 = ${match.groups[2]!!.value}")
+            }
+
+        }
+
+    }
+
+    val input = readInput("day07_test")
     println(part1(input))
 
     println(part2(input))
+    part3(input)
 }
